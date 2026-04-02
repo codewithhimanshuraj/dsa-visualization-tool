@@ -41,11 +41,8 @@ dsa-visualizer/
 │── package.json
 │── README.md
 ⚙️ Getting Started
-1️⃣ Clone the repository
-git clone https://github.com/your-username/dsa-visualizer.git
-2️⃣ Install dependencies
+1. Install dependencies
 npm install
-3️⃣ Run development server
+2. Run development server
 npm run dev
-4️⃣ Open in browser
-http://localhost:3000
+
