@@ -77,13 +77,7 @@ Click Deploy
 
 Contributions are welcome!
 
-Fork the repository
-Create a new branch
-Make your changes
-Submit a Pull Request
-📄 License
 
-This project is licensed under the MIT License.
 
 👨‍💻 Author
 
