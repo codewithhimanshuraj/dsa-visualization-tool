@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  progress  UserProgress[]
+  bookmarks Bookmark[]
+  sessions  PracticeSession[]
+}
+
+model Algorithm {
+  id          String @id @default(cuid())
+  name        String @unique
+  category    String // sorting, searching, graph, recursion, pathfinding
+  description String
+  timeComplexity String
+  spaceComplexity String
+  codeCpp     String
+  codeJava    String
+  codeJs      String
+  
+  // Relations
+  progress    UserProgress[]
+  bookmarks   Bookmark[]
+  sessions    PracticeSession[]
+}
+
+model UserProgress {
+  id           String   @id @default(cuid())
+  userId       String
+  algorithmId  String
+  completed    Boolean  @default(false)
+  timeSpent    Int      @default(0) // in seconds
+  attempts     Int      @default(0)
+  lastAttempt  DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relations
+  user         User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  algorithm    Algorithm @relation(fields: [algorithmId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, algorithmId])
+}
+
+model Bookmark {
+  id          String   @id @default(cuid())
+  userId      String
+  algorithmId String
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, algorithmId])
+}
+
+model PracticeSession {
+  id          String   @id @default(cuid())
+  userId      String
+  algorithmId String
+  inputSize   Int
+  executionTime Int // in milliseconds
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id], onDelete: Cascade)
+}
