@@ -7,7 +7,7 @@ An interactive Data Structures and Algorithms Visualizer built using modern web 
 📊 Multiple sorting & searching algorithms
 🎨 Modern UI with responsive design
 🌙 Dark / Light mode support
-🧠 Beginner-friendly learning experience
+🧠 Beginner-friendly learning experienc
 🧩 Algorithms Supported
 🔹 Sorting
 Bubble Sort
